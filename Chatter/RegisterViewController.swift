@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func registerClicked(sender: UIButton) {
         if(validateUserRegistration()) {
-            ParseLogin.sharedInstance.registerLogin(usernameText.text, password: passwordText.text, email: emailText.text, phoneNumber: phoneText.text, callback: {(success: Bool, error: NSError?) -> Void in
+            ParseService.sharedInstance.registerLogin(usernameText.text, password: passwordText.text, email: emailText.text, phoneNumber: phoneText.text, callback: {(success: Bool, error: NSError?) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.handleLoginResult(success, error: error)
                 })

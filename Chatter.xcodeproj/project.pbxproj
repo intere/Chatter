@@ -11,9 +11,10 @@
 		360D3BCA1B5AD4E9003002A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D3BC91B5AD4E9003002A7 /* ViewController.swift */; };
 		360D3BD21B5AD4E9003002A7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360D3BD01B5AD4E9003002A7 /* LaunchScreen.xib */; };
 		360D3BDE1B5AD4EA003002A7 /* ChatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D3BDD1B5AD4EA003002A7 /* ChatterTests.swift */; };
-		360D3BEB1B5AE195003002A7 /* ParseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D3BEA1B5AE195003002A7 /* ParseLogin.swift */; };
+		360D3BEB1B5AE195003002A7 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D3BEA1B5AE195003002A7 /* ParseService.swift */; };
 		361E502E1B5AE64E00BABEDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 361E502D1B5AE64E00BABEDB /* Images.xcassets */; };
 		361E50301B5AE66900BABEDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 361E502F1B5AE66900BABEDB /* Main.storyboard */; };
+		361E50321B5AED2A00BABEDB /* LayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361E50311B5AED2A00BABEDB /* LayerService.swift */; };
 		36A5B59C1B5AE53100AFAF28 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */; };
 		36A5B59E1B5AE54C00AFAF28 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */; };
 		36A5B5A01B5AE56900AFAF28 /* MainChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59F1B5AE56900AFAF28 /* MainChatViewController.swift */; };
@@ -46,12 +47,13 @@
 		360D3BD71B5AD4EA003002A7 /* ChatterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		360D3BDC1B5AD4EA003002A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		360D3BDD1B5AD4EA003002A7 /* ChatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterTests.swift; sourceTree = "<group>"; };
-		360D3BEA1B5AE195003002A7 /* ParseLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseLogin.swift; sourceTree = "<group>"; };
+		360D3BEA1B5AE195003002A7 /* ParseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseService.swift; sourceTree = "<group>"; };
 		360D3BEC1B5AE28D003002A7 /* libPods-Chatter-Bolts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Chatter-Bolts.a"; path = "Pods/build/Debug-iphoneos/libPods-Chatter-Bolts.a"; sourceTree = "<group>"; };
 		360D3BED1B5AE28D003002A7 /* libPods-Chatter-Parse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Chatter-Parse.a"; path = "Pods/build/Debug-iphoneos/libPods-Chatter-Parse.a"; sourceTree = "<group>"; };
 		360D3BEE1B5AE28D003002A7 /* libPods-Chatter-ParseUI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Chatter-ParseUI.a"; path = "Pods/build/Debug-iphoneos/libPods-Chatter-ParseUI.a"; sourceTree = "<group>"; };
 		361E502D1B5AE64E00BABEDB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		361E502F1B5AE66900BABEDB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		361E50311B5AED2A00BABEDB /* LayerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerService.swift; sourceTree = "<group>"; };
 		36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		36A5B59F1B5AE56900AFAF28 /* MainChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainChatViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +180,8 @@
 		360D3BE91B5AE143003002A7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				360D3BEA1B5AE195003002A7 /* ParseLogin.swift */,
+				360D3BEA1B5AE195003002A7 /* ParseService.swift */,
+				361E50311B5AED2A00BABEDB /* LayerService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -379,8 +382,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				360D3BCA1B5AD4E9003002A7 /* ViewController.swift in Sources */,
+				361E50321B5AED2A00BABEDB /* LayerService.swift in Sources */,
 				36A5B5A01B5AE56900AFAF28 /* MainChatViewController.swift in Sources */,
-				360D3BEB1B5AE195003002A7 /* ParseLogin.swift in Sources */,
+				360D3BEB1B5AE195003002A7 /* ParseService.swift in Sources */,
 				360D3BC81B5AD4E9003002A7 /* AppDelegate.swift in Sources */,
 				36A5B59E1B5AE54C00AFAF28 /* LoginViewController.swift in Sources */,
 				36A5B59C1B5AE53100AFAF28 /* RegisterViewController.swift in Sources */,

@@ -36,7 +36,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginClicked(sender: UIButton) {
         if(validateUserLogin()) {
-            ParseLogin.sharedInstance.login(usernameText.text, password: passwordText.text, callback: { (user: PFUser?, error: NSError?) -> Void in
+            ParseService.sharedInstance.login(usernameText.text, password: passwordText.text, callback: { (user: PFUser?, error: NSError?) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.handleLoginCallback(user, error: error)
                 })

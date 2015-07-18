@@ -9,9 +9,14 @@
 import Foundation
 import Parse
 
-class ParseLogin : NSObject {
-    static let sharedInstance = ParseLogin.new()
+class ParseService : NSObject {
+    static let sharedInstance = ParseService.new()
     var authenticatedUser = nil as PFUser?
+    
+    /** Are we logged into Parse already?  */
+    static func isLoggedIn() -> Bool {
+        return nil != PFUser.currentUser()
+    }
     
     /** Lets you create a login using the provided username, password, email, (optional) phone number and a callback block */
     func registerLogin(username: String!, password: String!, email: String!, phoneNumber: String?, callback: (Bool, NSError?) -> Void) {
@@ -39,4 +44,6 @@ class ParseLogin : NSObject {
     func getAuthenticatedUser() -> PFUser? {
         return authenticatedUser
     }
+    
+    
 }

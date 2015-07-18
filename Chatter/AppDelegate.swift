@@ -21,6 +21,7 @@ import LayerKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var layerClient: LYRClient?
     
     //--------------------------------------
     // MARK: - UIApplicationDelegate
@@ -37,6 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Uncomment and fill in with your Parse credentials:
         Parse.setApplicationId("oo8ji6qUgdSCvEdDMOkjDC9whWGv0Tf7ue4znRvh", clientKey: "0MPYiKflidLWBdhbbfAvMCqJdV93Zupz5aQjVeOR")
+        layerClient = LYRClient(appID: NSURL(string: "layer:///apps/staging/0c3563da-2d71-11e5-a6d7-42908f007550"))
+        layerClient?.connectWithCompletion({ (success: Bool, error: NSError!) -> Void in
+            if(success) {
+                println("Connected to Layer Service")
+            } else {
+                println("Error connecting to Layer Service: " + error.localizedDescription)
+            }
+        })
         
         //
         // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
@@ -114,24 +123,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
     }
-    
-    ///////////////////////////////////////////////////////////
-    // Uncomment this method if you want to use Push Notifications with Background App Refresh
-    ///////////////////////////////////////////////////////////
-    // func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    //     if application.applicationState == UIApplicationState.Inactive {
-    //         PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-    //     }
-    // }
-    
-    //--------------------------------------
-    // MARK: Facebook SDK Integration
-    //--------------------------------------
-    
-    ///////////////////////////////////////////////////////////
-    // Uncomment this method if you are using Facebook
-    ///////////////////////////////////////////////////////////
-    // func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-    //     return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, session:PFFacebookUtils.session())
-    // }
 }
