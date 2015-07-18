@@ -1,0 +1,25 @@
+PODS:
+  - Bolts/Tasks (1.2.0)
+  - LayerKit (0.15.0)
+  - Parse (1.7.5.2):
+    - Bolts/Tasks (>= 1.2.0)
+  - ParseCrashReporting (1.7.5.2):
+    - Bolts/Tasks (>= 1.2.0)
+    - Parse (~> 1.7.5.2)
+  - ParseUI (1.1.4):
+    - Parse (~> 1.7)
+
+DEPENDENCIES:
+  - LayerKit
+  - Parse
+  - ParseCrashReporting
+  - ParseUI
+
+SPEC CHECKSUMS:
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  LayerKit: ac8c5c227a06e2ea5e042303b80e931a8ffe3568
+  Parse: 9a01b8cb054f113b74211370aaf9d982d355729a
+  ParseCrashReporting: 75c442d8e89f21644b2a112381cdecdd9240f0bd
+  ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
+
+COCOAPODS: 0.36.0.beta.1
