@@ -11,6 +11,7 @@ import Parse
 
 public class ParseService : NSObject {
     public static let sharedInstance = ParseService.new()
+    public typealias BoolCompletionBlock = Optional<(Bool,NSError?)->Void>
     
     /** Constructor: Performs the initialization.  */
     override init() {
@@ -20,7 +21,7 @@ public class ParseService : NSObject {
     
     /** Are we logged into Parse already?  */
     static func isLoggedIn() -> Bool {
-        return nil != PFUser.currentUser()
+        return nil != PFUser.currentUser() && nil != PFUser.currentUser()!.objectId
     }
     
     /** Lets you create a login using the provided username, password, email, (optional) phone number and a callback block */
@@ -44,13 +45,22 @@ public class ParseService : NSObject {
         }
     }
     
+    /** Logs you out of the Parse Service.  */
+    func logout(callback: BoolCompletionBlock) {
+        PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
+            if nil != callback {
+                callback!(nil == error, error)
+            }
+        }
+    }
+    
     /** Get the Authenticatd User.  */
     public func getAuthenticatedUser() -> PFUser? {
         return PFUser.currentUser()
     }
     
     /** Parse Service Initialization.  */
-    func initializeParseService() {
+    public func initializeParseService() {
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         Parse.enableLocalDatastore()
@@ -61,6 +71,24 @@ public class ParseService : NSObject {
         //
         // Uncomment and fill in with your Parse credentials:
         Parse.setApplicationId("oo8ji6qUgdSCvEdDMOkjDC9whWGv0Tf7ue4znRvh", clientKey: "0MPYiKflidLWBdhbbfAvMCqJdV93Zupz5aQjVeOR")
+    }
+    
+    /** Search for a user by username.  */
+    public func findUser(username: String!, completion: ((NSArray?, NSError?) -> Void)) {
+        let userQuery: PFQuery! = PFUser.query()
+        userQuery.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
+        
+        userQuery.findObjectsInBackgroundWithBlock { objects, error in
+            var contacts = [PFUser]()
+            if (error == nil) {
+                for user: PFUser in (objects as! [PFUser]) {
+                    if user.username!.rangeOfString(username, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil {
+                        contacts.append(user)
+                    }
+                }
+            }
+            completion(contacts, error)
+        }
     }
     
     /** The part of boostrapping that we need the application instance and launch options for:  */

@@ -57,7 +57,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func handleLoginResult(success: Bool, error: NSError?) {
         if nil == error {
             if(success) {
-                MainChatViewController.loadMainChatViewControllerFromViewController(self)
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    MainChatViewController.loadMainChatViewControllerFromViewController(self, dismissCurrentVc: true)
+                })
             } else {
                 displayRegistrationError("Unknown Error")
             }

@@ -55,13 +55,23 @@ public class LayerService: NSObject {
         }
     }
     
+    /** This method handles logging into the Layer Service.  */
     public func connect(completion: BoolCompletionBlock) {
         layerClient = LYRClient(appID: NSURL(string: "layer:///apps/staging/0c3563da-2d71-11e5-a6d7-42908f007550"))
         layerClient?.connectWithCompletion({ (success: Bool, error: NSError?) -> Void in
             if(success) {
                 println("Connected to Layer Service")
-                let userID: String = PFUser.currentUser()!.objectId!
-                self.authenticateLayerWithUserID(userID, completion: completion)
+                if nil != PFUser.currentUser()!.objectId {
+                    let userID = PFUser.currentUser()!.objectId! as String
+                    self.authenticateLayerWithUserID(userID, completion: completion)
+                } else {
+                    self.layerClient = nil
+                    println("We don't have the Parse User ID Yet, deferring for a second")
+                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_MSEC)))
+                    dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+                        self.connect(completion)
+                    })
+                }
             } else {
                 println("Error connecting to Layer Service: " + error!.localizedDescription)
                 if nil != completion {
@@ -71,8 +81,22 @@ public class LayerService: NSObject {
         })
     }
     
+    /** This method disconnects from the Layer Service.  */
+    public func disconnect(completion: BoolCompletionBlock) {
+        let userId = PFUser.currentUser()!.objectId! as String
+        
+        layerClient!.deauthenticateWithCompletion({ (success:Bool, error: NSError?) -> Void in
+            self.layerClient = nil
+            if success {
+                completion!(true,nil)
+            } else {
+                completion!(false,error)
+            }
+        })
+    }
+    
     /**
-     * You must authenticate a user before they are allowed to send or receive messages. Layer 
+     * You must authenticate a user before they are allowed to send or receive messages. Layer
      * authentication requires that a backend server generate an Identity Token on behalf of the 
      * client. For testing purposes, Layer provides a sample backend that takes care of this. 
      *
