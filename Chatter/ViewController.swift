@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if(ParseService.isLoggedIn()) {
-            MainChatViewController.loadMainChatViewControllerFromViewController(self)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                MainChatViewController.loadMainChatViewControllerFromViewController(self)
+            })            
         }
     }
     

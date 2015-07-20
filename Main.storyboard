@@ -367,6 +367,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="xh7-Cz-dJB" id="R9Q-Pb-vEF"/>
                         <outlet property="passwordText" destination="S40-Kg-W2O" id="o6s-XR-uXn"/>
                         <outlet property="usernameText" destination="Xkh-nb-pqZ" id="95r-rJ-n4D"/>
                     </connections>

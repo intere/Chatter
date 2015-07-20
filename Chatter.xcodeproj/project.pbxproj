@@ -24,6 +24,8 @@
 		36A5B5AC1B5AE5D300AFAF28 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A71B5AE5D300AFAF28 /* register.png */; };
 		36A5B5AD1B5AE5D300AFAF28 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A81B5AE5D300AFAF28 /* login.png */; };
 		36A5B5AF1B5AE5DD00AFAF28 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5AE1B5AE5DD00AFAF28 /* title.png */; };
+		36AB61C61B5C16FD003280B8 /* ParseServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */; };
+		36AB61CA1B5C1A84003280B8 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36AB61C91B5C1A84003280B8 /* Pods_Chatter.framework */; };
 		A0555352A3726E9E5C6D8C81 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF4D649714209C7FBC2F749 /* Pods_Chatter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,8 @@
 		36A5B5A71B5AE5D300AFAF28 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		36A5B5A81B5AE5D300AFAF28 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
 		36A5B5AE1B5AE5DD00AFAF28 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseServiceTest.swift; sourceTree = "<group>"; };
+		36AB61C91B5C1A84003280B8 /* Pods_Chatter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Chatter.framework; path = "Pods/../build/Debug-iphoneos/Pods_Chatter.framework"; sourceTree = "<group>"; };
 		7744D10111DDA42D46038E0F /* Pods-Chatter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatter/Pods-Chatter.debug.xcconfig"; sourceTree = "<group>"; };
 		9AF4D649714209C7FBC2F749 /* Pods_Chatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -80,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36AB61CA1B5C1A84003280B8 /* Pods_Chatter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +94,7 @@
 		2177CDAC8102593780DCF2FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36AB61C91B5C1A84003280B8 /* Pods_Chatter.framework */,
 				360D3BEC1B5AE28D003002A7 /* libPods-Chatter-Bolts.a */,
 				360D3BED1B5AE28D003002A7 /* libPods-Chatter-Parse.a */,
 				360D3BEE1B5AE28D003002A7 /* libPods-Chatter-ParseUI.a */,
@@ -139,6 +145,7 @@
 		360D3BDA1B5AD4EA003002A7 /* ChatterTests */ = {
 			isa = PBXGroup;
 			children = (
+				36AB61C11B5C1697003280B8 /* Services */,
 				360D3BDD1B5AD4EA003002A7 /* ChatterTests.swift */,
 				360D3BDB1B5AD4EA003002A7 /* Supporting Files */,
 			);
@@ -213,6 +220,14 @@
 				36A5B5A21B5AE5B700AFAF28 /* Header */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		36AB61C11B5C1697003280B8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		7E3EB639B4BCCC26EAF65FF9 /* Pods */ = {
@@ -396,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				360D3BDE1B5AD4EA003002A7 /* ChatterTests.swift in Sources */,
+				36AB61C61B5C16FD003280B8 /* ParseServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +477,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.4;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -498,7 +514,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.4;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -537,9 +553,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -547,7 +565,11 @@
 				);
 				INFOPLIST_FILE = ChatterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "Pods/build/Debug-iphonesimulator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chatter.app/Chatter";
 			};
 			name = Debug;
@@ -556,13 +578,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = ChatterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "Pods/build/Debug-iphonesimulator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chatter.app/Chatter";
 			};
 			name = Release;

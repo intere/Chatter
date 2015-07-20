@@ -12,18 +12,45 @@ class MainChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        initializeLayer()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     /** Static Function to let you load this view controller from your view controller.  */
     static func loadMainChatViewControllerFromViewController(currentVc: UIViewController!) {
         let vc = currentVc.storyboard!.instantiateViewControllerWithIdentifier("MainChatViewController") as! MainChatViewController
         currentVc.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func initializeLayer() {
+        LayerService.sharedInstance.connect { (success: Bool, error: NSError?) -> Void in
+            if success {
+                println("We're logged in to Layer")
+            } else {
+                println("Failed to login to Layer")
+            }
+        }
+//        if ParseService.isLoggedIn() {
+//            let userId = ParseService.sharedInstance.getAuthenticatedUser()!.objectId as String!
+//            
+//            LayerService.sharedInstance.authenticateLayerWithUserID(userId, completion: { (success: Bool, error: NSError?) -> Void in
+//                if success {
+//                    LayerService.sharedInstance.authenticationTokenWithUserId(userId, completion: { (success: Bool, error: NSError?) -> Void in
+//                        if success {
+//                            println("Got an authentication token for user id '" + userId + "'")
+//                        } else {
+//                            println("Error getting authentication token for user id '" + userId + "': " + error!.localizedDescription)
+//                        }
+//                    })
+//                } else {
+//                    println("Error authenticating user id '" + userId + "': " + error!.localizedDescription)
+//                }
+//            })
+//        } else {
+//            println("Not Logged In to Parse")
+//        }
     }
 }

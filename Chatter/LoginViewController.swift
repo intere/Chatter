@@ -12,6 +12,7 @@ import Parse
 class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var usernameText: UITextField!
     @IBOutlet var passwordText: UITextField!
+    @IBOutlet var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        if textField == passwordText && validateUserLogin() {
+            loginClicked(loginButton)
+        }
         return true
     }
     
