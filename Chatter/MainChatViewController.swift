@@ -9,6 +9,8 @@
 import UIKit
 
 class MainChatViewController: UIViewController {
+    @IBOutlet var usernameText: UITextField!
+    @IBOutlet var addUserChatButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,24 +35,10 @@ class MainChatViewController: UIViewController {
                 println("Failed to login to Layer")
             }
         }
-//        if ParseService.isLoggedIn() {
-//            let userId = ParseService.sharedInstance.getAuthenticatedUser()!.objectId as String!
-//            
-//            LayerService.sharedInstance.authenticateLayerWithUserID(userId, completion: { (success: Bool, error: NSError?) -> Void in
-//                if success {
-//                    LayerService.sharedInstance.authenticationTokenWithUserId(userId, completion: { (success: Bool, error: NSError?) -> Void in
-//                        if success {
-//                            println("Got an authentication token for user id '" + userId + "'")
-//                        } else {
-//                            println("Error getting authentication token for user id '" + userId + "': " + error!.localizedDescription)
-//                        }
-//                    })
-//                } else {
-//                    println("Error authenticating user id '" + userId + "': " + error!.localizedDescription)
-//                }
-//            })
-//        } else {
-//            println("Not Logged In to Parse")
-//        }
+    }
+    
+    
+    @IBAction func addUserButtonClicked(sender: UIButton) {
+        
     }
 }
