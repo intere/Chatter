@@ -26,5 +26,33 @@ class ParseServiceTest: XCTestCase {
         XCTAssertNotNil(ParseService.sharedInstance, "The Parse Service was nil")
     }
     
-    
+    func testLogin() {
+        let username = "intere" as String
+        let password = "eric" as String
+        
+        var expectation = self.expectationWithDescription("Login Block")
+        
+        if ParseService.isLoggedIn() {
+            ParseService.sharedInstance.logout({ (success:Bool, error: NSError?) -> Void in
+                ParseService.sharedInstance.login(username, password: password) { (user, error: NSError?) -> Void in
+                    XCTAssertNotNil(user, "user was nil")
+                    XCTAssertNil(error, "There was an error trying to login")
+                    expectation.fulfill()
+                }
+            })
+        } else {
+            ParseService.sharedInstance.login(username, password: password) { (user, error: NSError?) -> Void in
+                XCTAssertNotNil(user, "user was nil")
+                XCTAssertNil(error, "There was an error trying to login")
+                expectation.fulfill()
+            }
+        }
+        
+        
+        self.waitForExpectationsWithTimeout(10.0, handler: { (error:NSError!) -> Void in
+            if nil != error {
+                XCTFail("ParseService never returned a valid value: \(error.localizedDescription)")
+            }
+        })
+    }    
 }

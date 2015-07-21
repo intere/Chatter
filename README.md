@@ -6,5 +6,4 @@ This project is a POC of an iOS (Swift) Program that provides user registration,
 ## Requirements
 * XCode 6.4 (minimum)
 * iOS 8.0 (minimum)
-
-
+* CocoaPods 0.38.0

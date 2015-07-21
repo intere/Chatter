@@ -510,7 +510,7 @@
         <!--Chat View Controller-->
         <scene sceneID="g3g-Ch-lIU">
             <objects>
-                <viewController id="YoN-mm-8Sr" customClass="ChatViewController" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" id="YoN-mm-8Sr" customClass="ChatViewController" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Eog-Jo-wqN"/>
                         <viewControllerLayoutGuide type="bottom" id="RRy-nh-LZc"/>
@@ -526,12 +526,6 @@
                                     <constraint firstAttribute="height" constant="20" id="s5J-7m-fIi"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEt-iD-SJm">
-                                <rect key="frame" x="0.0" y="68" width="600" height="486"/>
-                                <connections>
-                                    <segue destination="8VW-ZP-Vtg" kind="embed" id="Zdp-2s-122"/>
-                                </connections>
-                            </containerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KS3-cN-G2r">
                                 <rect key="frame" x="16" y="562" width="568" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -570,6 +564,12 @@
                                 <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEt-iD-SJm">
+                                <rect key="frame" x="0.0" y="68" width="600" height="486"/>
+                                <connections>
+                                    <segue destination="8VW-ZP-Vtg" kind="embed" id="Zdp-2s-122"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -584,11 +584,18 @@
                             <constraint firstItem="IyM-5H-bPH" firstAttribute="top" secondItem="NZT-vm-zgm" secondAttribute="topMargin" id="dmf-wK-ey3"/>
                             <constraint firstItem="KS3-cN-G2r" firstAttribute="leading" secondItem="NZT-vm-zgm" secondAttribute="leadingMargin" id="ffs-ed-GpZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IyM-5H-bPH" secondAttribute="trailing" constant="-16" id="j8M-3S-c3Y"/>
+                            <constraint firstItem="yEt-iD-SJm" firstAttribute="top" secondItem="U2e-2X-8o6" secondAttribute="bottom" constant="8" id="jwi-t8-YNA"/>
                             <constraint firstItem="yEt-iD-SJm" firstAttribute="top" secondItem="Eog-Jo-wqN" secondAttribute="bottom" id="pf0-be-aQo"/>
                             <constraint firstAttribute="centerX" secondItem="40T-TE-Ct0" secondAttribute="centerX" id="pnY-6c-ySP"/>
                             <constraint firstItem="U2e-2X-8o6" firstAttribute="top" secondItem="Eog-Jo-wqN" secondAttribute="bottom" constant="8" id="r8K-kB-N8X"/>
                             <constraint firstItem="40T-TE-Ct0" firstAttribute="top" secondItem="Eog-Jo-wqN" secondAttribute="bottom" constant="8" id="raI-lG-2J5"/>
+                            <constraint firstItem="yEt-iD-SJm" firstAttribute="top" secondItem="U2e-2X-8o6" secondAttribute="bottom" constant="8" id="wXR-WT-mEX"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pf0-be-aQo"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="messageText" destination="KS3-cN-G2r" id="vrh-f8-5TF"/>
@@ -661,23 +668,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLc-Am-xTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2719" y="825"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Rjs-VS-TiJ">
-            <objects>
-                <viewController id="H9C-09-avf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ejx-Bc-BiN"/>
-                        <viewControllerLayoutGuide type="bottom" id="v1w-Jd-VTd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wYa-uu-mwD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NHC-ah-8IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

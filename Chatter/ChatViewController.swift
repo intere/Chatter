@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import Parse
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var messageText: UITextField!
+    var user: PFUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.messageText.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 
@@ -34,6 +39,17 @@ class ChatViewController: UIViewController {
     }
     */
     @IBAction func backButtonClicked(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
+    func setCurrentUser(user: PFUser!) -> Void {
+        if nil != usernameLabel {
+            self.user = user
+            usernameLabel.text = user.username
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_MSEC))), dispatch_get_main_queue(), { () -> Void in
+                self.setCurrentUser(user)
+            })
+        }
+    }
 }

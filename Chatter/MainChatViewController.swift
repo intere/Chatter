@@ -9,17 +9,24 @@
 import UIKit
 import Parse
 
-class MainChatViewController: UIViewController {
+class MainChatViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var usernameText: UITextField!
     @IBOutlet var addUserChatButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameText.delegate = self
         initializeLayer()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        addUserButtonClicked(addUserChatButton)
+        return true
     }
     
     /** Static Function to let you load this view controller from your view controller.  */
@@ -59,18 +66,25 @@ class MainChatViewController: UIViewController {
                         if results!.count == 1 {
                             let found = results!.objectAtIndex(0) as! PFUser
                             println("Found User: " + found.username!)
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.loadChatView(found)
+                                self.usernameText.text = ""
+                            })
                         } else {
                             let users = results as! [PFUser]
-                            let usernames = users.map { $0.username }
-                            let usernamesString = ",".join(usernames as! [String])
+                            let usernames = users.map { $0.username } as Array<String!>
                             
-                            self.displayLoginError("Search Error", errorMessage: "We found too many results for your search (please provide an exact username match): " + usernamesString)
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.displayLoginError("Search Error", errorMessage: "We found too many results for your search (please provide an exact username match): \(usernames)" )
+                            })
                         }
                     } else {
-                        self.displayLoginError("Search Error", errorMessage: "We did not find any users that had the username: '" + username + "'")
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.displayLoginError("Search Error", errorMessage: "We did not find any users that had the username: '" + username + "'")
+                        })
                     }
                 } else {
-                    
+                    println("Error searching for user \(username): \(error!.localizedDescription)")
                 }
             })
         }
@@ -105,5 +119,13 @@ class MainChatViewController: UIViewController {
         var alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Error", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    /** Open the Chat Window.  */
+    func loadChatView(user: PFUser!) {
+        let chatVc = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+        chatVc.setCurrentUser(user)
+        
+        self.presentViewController(chatVc, animated: true, completion: nil)
     }
 }

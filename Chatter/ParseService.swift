@@ -20,12 +20,12 @@ public class ParseService : NSObject {
     }
     
     /** Are we logged into Parse already?  */
-    static func isLoggedIn() -> Bool {
+    public static func isLoggedIn() -> Bool {
         return nil != PFUser.currentUser() && nil != PFUser.currentUser()!.objectId
     }
     
     /** Lets you create a login using the provided username, password, email, (optional) phone number and a callback block */
-    func registerLogin(username: String!, password: String!, email: String!, phoneNumber: String?, callback: (Bool, NSError?) -> Void) {
+    public func registerLogin(username: String!, password: String!, email: String!, phoneNumber: String?, callback: (Bool, NSError?) -> Void) {
         let user = PFUser()
         user.username = username
         user.password = password
@@ -39,14 +39,14 @@ public class ParseService : NSObject {
     }
     
     /** Lets you login to Parse with the provided username and password.  */
-    func login(username: String!, password: String!, callback: (PFUser?, NSError?) -> Void) {
+    public func login(username: String!, password: String!, callback: (PFUser?, NSError?) -> Void) {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user: PFUser?, error: NSError?) -> Void in
             callback(user, error)
         }
     }
     
     /** Logs you out of the Parse Service.  */
-    func logout(callback: BoolCompletionBlock) {
+    public func logout(callback: BoolCompletionBlock) {
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
             if nil != callback {
                 callback!(nil == error, error)

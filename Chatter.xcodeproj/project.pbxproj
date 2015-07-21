@@ -30,7 +30,6 @@
 		36A5B5AD1B5AE5D300AFAF28 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A81B5AE5D300AFAF28 /* login.png */; };
 		36A5B5AF1B5AE5DD00AFAF28 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5AE1B5AE5DD00AFAF28 /* title.png */; };
 		36AB61C61B5C16FD003280B8 /* ParseServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */; };
-		36AB61CA1B5C1A84003280B8 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36AB61C91B5C1A84003280B8 /* Pods_Chatter.framework */; };
 		36E5D9D21B5C95C400AB8828 /* Add_User_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5D9D11B5C95C400AB8828 /* Add_User_64.png */; };
 		36E5D9D41B5C98A100AB8828 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */; };
 		A0555352A3726E9E5C6D8C81 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF4D649714209C7FBC2F749 /* Pods_Chatter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -98,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36AB61CA1B5C1A84003280B8 /* Pods_Chatter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +550,7 @@
 			baseConfigurationReference = 7744D10111DDA42D46038E0F /* Pods-Chatter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PODS_ROOT)/LayerKit/LayerKit.embeddedframework\"";
 				INFOPLIST_FILE = Chatter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -567,6 +566,7 @@
 			baseConfigurationReference = 044EDC2203F40A58DF01FDD4 /* Pods-Chatter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PODS_ROOT)/LayerKit/LayerKit.embeddedframework\"";
 				INFOPLIST_FILE = Chatter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -584,6 +584,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"\"$(PODS_ROOT)/LayerKit/LayerKit.embeddedframework\"",
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
@@ -592,8 +593,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ChatterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "Pods/build/Debug-iphonesimulator";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -609,12 +613,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"\"$(PODS_ROOT)/LayerKit/LayerKit.embeddedframework\"",
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = ChatterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "Pods/build/Debug-iphonesimulator";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
