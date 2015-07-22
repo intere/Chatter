@@ -54,5 +54,5 @@ class ParseServiceTest: XCTestCase {
                 XCTFail("ParseService never returned a valid value: \(error.localizedDescription)")
             }
         })
-    }    
+    }
 }

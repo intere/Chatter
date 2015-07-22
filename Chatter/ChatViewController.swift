@@ -8,11 +8,13 @@
 
 import UIKit
 import Parse
+import LayerKit
 
 class ChatViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var messageText: UITextField!
     var user: PFUser?
+    var conversation: LYRConversation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,27 +27,28 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        if textField === self.messageText {
+            self.sendMessage()
+        }
         return true
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func backButtonClicked(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func sendMessage() {
+        if !self.messageText.text.isEmpty {
+            LayerService.sharedInstance.sendMessage(self.conversation!, messageText: self.messageText.text)
+            self.messageText.text = ""
+        }
     }
     
     func setCurrentUser(user: PFUser!) -> Void {
         if nil != usernameLabel {
             self.user = user
-            usernameLabel.text = user.username
+            self.usernameLabel.text = user.username
+            self.conversation = LayerService.sharedInstance.createConversation(user.username)
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_MSEC))), dispatch_get_main_queue(), { () -> Void in
                 self.setCurrentUser(user)

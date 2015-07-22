@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MainChatViewController: UIViewController, UITextFieldDelegate {
+class MainChatViewController: UIViewController, UITextFieldDelegate, UserSelectionListener {
     @IBOutlet var usernameText: UITextField!
     @IBOutlet var addUserChatButton: UIButton!
     
@@ -27,6 +27,21 @@ class MainChatViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         addUserButtonClicked(addUserChatButton)
         return true
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // TODO
+        if(segue.identifier == "embedUserListViewController") {
+            let userListVc = segue.destinationViewController as! UserListViewController
+            userListVc.selectionListenerDelegate = self
+        }
+    }
+    
+    //
+    // MARK - UserSelectionListener method
+    //
+    func userSelected(username: String!) {
+        searchForUser(username)
     }
     
     /** Static Function to let you load this view controller from your view controller.  */
@@ -56,37 +71,40 @@ class MainChatViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func searchForUser(username: String!) {
+        ParseService.sharedInstance.findUser(username, completion: { (results: NSArray?, error) -> Void in
+            if nil == error {
+                if nil != results && results!.count > 0 {
+                    if results!.count == 1 {
+                        let found = results!.objectAtIndex(0) as! PFUser
+                        println("Found User: " + found.username!)
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.loadChatView(found)
+                            self.usernameText.text = ""
+                        })
+                    } else {
+                        let users = results as! [PFUser]
+                        let usernames = users.map { $0.username } as Array<String!>
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.displayLoginError("Search Error", errorMessage: "We found too many results for your search (please provide an exact username match): \(usernames)" )
+                        })
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.displayLoginError("Search Error", errorMessage: "We did not find any users that had the username: '" + username + "'")
+                    })
+                }
+            } else {
+                println("Error searching for user \(username): \(error!.localizedDescription)")
+            }
+        })
+    }
     
     @IBAction func addUserButtonClicked(sender: UIButton) {
         if !usernameText.text.isEmpty {
             let username = usernameText.text
-            ParseService.sharedInstance.findUser(username, completion: { (results: NSArray?, error) -> Void in
-                if nil == error {
-                    if nil != results && results!.count > 0 {
-                        if results!.count == 1 {
-                            let found = results!.objectAtIndex(0) as! PFUser
-                            println("Found User: " + found.username!)
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.loadChatView(found)
-                                self.usernameText.text = ""
-                            })
-                        } else {
-                            let users = results as! [PFUser]
-                            let usernames = users.map { $0.username } as Array<String!>
-                            
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.displayLoginError("Search Error", errorMessage: "We found too many results for your search (please provide an exact username match): \(usernames)" )
-                            })
-                        }
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.displayLoginError("Search Error", errorMessage: "We did not find any users that had the username: '" + username + "'")
-                        })
-                    }
-                } else {
-                    println("Error searching for user \(username): \(error!.localizedDescription)")
-                }
-            })
+            searchForUser(username)
         }
     }
     

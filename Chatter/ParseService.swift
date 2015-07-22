@@ -74,7 +74,7 @@ public class ParseService : NSObject {
     }
     
     /** Search for a user by username.  */
-    public func findUser(username: String!, completion: ((NSArray?, NSError?) -> Void)) {
+    public func findUser(username: String?, completion: ((NSArray?, NSError?) -> Void)) {
         let userQuery: PFQuery! = PFUser.query()
         userQuery.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
         
@@ -82,7 +82,7 @@ public class ParseService : NSObject {
             var contacts = [PFUser]()
             if (error == nil) {
                 for user: PFUser in (objects as! [PFUser]) {
-                    if user.username!.rangeOfString(username, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil {
+                    if nil == username || user.username!.rangeOfString(username!, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil {
                         contacts.append(user)
                     }
                 }

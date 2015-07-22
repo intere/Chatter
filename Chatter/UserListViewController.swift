@@ -8,16 +8,27 @@
 
 import UIKit
 
+
+
+protocol UserSelectionListener {
+    func userSelected(username: String!)
+}
+
 class UserListViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
-    let values = ["Row 1", "Row 2", "Row 3"]
+    var values = []
+    var selectionListenerDelegate = nil as UserSelectionListener?
 
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "loadUsers", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
+        loadUsers()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -28,14 +39,34 @@ class UserListViewController: UITableViewController, UITableViewDataSource, UITa
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return values.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UserTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel?.textColor = UIColor.orangeColor()
 
-        cell.textLabel!.text = values[indexPath.row]
+        cell.textLabel!.text = values[indexPath.row].username
 
         return cell
+    }
+    
+    func loadUsers() {
+        self.refreshControl?.beginRefreshing()
+        ParseService.sharedInstance.findUser(nil) { (userList: NSArray?, error: NSError?) -> Void in
+            if nil != userList {
+                self.values = userList!
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                    self.refreshControl!.endRefreshing()
+                })
+            }
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let username = values[indexPath.row].username
+        if nil != selectionListenerDelegate {
+            selectionListenerDelegate!.userSelected(username)
+        }
     }
 
     /*
