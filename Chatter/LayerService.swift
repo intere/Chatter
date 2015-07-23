@@ -13,7 +13,7 @@ import Parse
 public class LayerService: NSObject {
     public static let sharedInstance = LayerService.new()
     var layerClient: LYRClient?
-//    var conversation: LYRConversation?
+    var conversationMap: Dictionary<String, LYRConversation> = [:]
     public typealias BoolCompletionBlock = Optional<(Bool,NSError?)->Void>
     public typealias StringCompletionBlock = Optional<(String?,NSError?)->Void>
     
@@ -27,14 +27,23 @@ public class LayerService: NSObject {
         // TODO - do we need to do anything?
     }
     
-    func createConversation(user: String!) -> LYRConversation? {
+    func createConversation(username: String!) -> LYRConversation? {
         if nil != self.layerClient {
-            var error: NSError?
-            var conversation = layerClient?.newConversationWithParticipants([user], options: nil, error: &error)
-            if nil != error {
-                println("ERROR creating conversation: \(error!.localizedDescription)")
+            if nil == conversationMap[username] {
+                var error: NSError?
+                var conversation = layerClient?.newConversationWithParticipants([username], options: nil, error: &error)
+                if nil != error {
+                    if nil != error!.userInfo && nil != error!.userInfo![LYRExistingDistinctConversationKey] {
+                        conversation = error!.userInfo![LYRExistingDistinctConversationKey] as! LYRConversation
+                    } else {
+                        println("ERROR creating conversation: \(error!.localizedDescription)")
+                    }
+                }
+                conversationMap[username] = conversation
+                return conversation
+            } else {
+                return conversationMap[username]
             }
-            return conversation
         }
         return nil
     }
@@ -56,34 +65,6 @@ public class LayerService: NSObject {
         }
 
     }
-    
-//    func sendMessage(messageText: String!) {
-//        // If no conversations exist, create a new conversation object with two participants
-//        // For the purposes of this Quick Start project, the 3 participants in this conversation are 'Device'  (the authenticated user id), 'Simulator', and 'Dashboard'.
-//        if nil == self.conversation {
-//            var error: NSError?
-//            self.conversation = layerClient?.newConversationWithParticipants(["Simulator", "Dashboard"], options: nil, error: &error)
-//            if nil == self.conversation {
-//                println("New Conversation creation failed: " + error!.localizedDescription)
-//                return
-//            }
-//        }
-//        
-//        // Creates a message part with text/plain MIME Type
-//        let messagePart = LYRMessagePart(text: messageText)
-//        
-//        // Creates and returns a new message object with the given conversation and array of message parts
-//        let message = self.layerClient?.newMessageWithParts([messagePart], options: [LYRMessageOptionsPushNotificationAlertKey: messageText], error: nil) as LYRMessage!
-//        
-//        // Sends the specified message
-//        var error: NSError?
-//        let success = self.conversation!.sendMessage(message, error:&error)
-//        if success {
-//            println("Message queued to be sent: " + messageText)
-//        } else {
-//            println("Message send failed: " + error!.localizedDescription)
-//        }
-//    }
     
     /** This method handles logging into the Layer Service.  */
     public func connect(completion: BoolCompletionBlock) {
@@ -119,6 +100,7 @@ public class LayerService: NSObject {
             self.layerClient = nil
             if success {
                 completion!(true,nil)
+                self.conversationMap = [:]
             } else {
                 completion!(false,error)
             }
