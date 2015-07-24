@@ -58,7 +58,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if nil == error {
             if(success) {
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    MainChatViewController.loadMainChatViewControllerFromViewController(self, dismissCurrentVc: true)
+                    UsersViewController.loadMainChatViewControllerFromViewController(self, dismissCurrentVc: true)
                 })
             } else {
                 displayRegistrationError("Unknown Error")

@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         if(ParseService.isLoggedIn()) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                MainChatViewController.loadMainChatViewControllerFromViewController(self)
+                UsersViewController.loadMainChatViewControllerFromViewController(self)
             })            
         }
     }

@@ -27,6 +27,32 @@ public class LayerService: NSObject {
         // TODO - do we need to do anything?
     }
     
+    /** Get the authenticated user id.  */
+    func getAuthenticatedUserId() -> String? {
+        if nil != self.layerClient {
+            return self.layerClient!.authenticatedUserID
+        }
+        return nil
+    }
+    
+    /** Get the current set of conversations.  */
+    func loadConversations() -> NSOrderedSet? {
+        let query = LYRQuery(queryableClass: LYRConversation.self) as LYRQuery
+        query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsIn, value: self.layerClient?.authenticatedUserID)
+        query.sortDescriptors = [NSSortDescriptor(key: "lastMessage.receivedAt", ascending: false)]
+        
+        var error: NSError?
+        
+        let messages = self.layerClient?.executeQuery(query, error: &error) as NSOrderedSet?
+        if nil != error {
+            println("Query failed iwth error: \(error!.localizedDescription)")
+            return nil
+        } else {
+            return messages
+        }
+    }
+    
+    /** Creates a conversation for you.  */
     func createConversation(username: String!) -> LYRConversation? {
         if nil != self.layerClient {
             if nil == conversationMap[username] {
@@ -34,7 +60,7 @@ public class LayerService: NSObject {
                 var conversation = layerClient?.newConversationWithParticipants([username], options: nil, error: &error)
                 if nil != error {
                     if nil != error!.userInfo && nil != error!.userInfo![LYRExistingDistinctConversationKey] {
-                        conversation = error!.userInfo![LYRExistingDistinctConversationKey] as! LYRConversation
+                        conversation = error!.userInfo![LYRExistingDistinctConversationKey] as? LYRConversation
                     } else {
                         println("ERROR creating conversation: \(error!.localizedDescription)")
                     }

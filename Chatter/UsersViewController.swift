@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MainChatViewController: UIViewController, UITextFieldDelegate, UserSelectionListener {
+class UsersViewController: UIViewController, UITextFieldDelegate, UserSelectionListener {
     @IBOutlet var usernameText: UITextField!
     @IBOutlet var addUserChatButton: UIButton!
     
@@ -30,11 +30,37 @@ class MainChatViewController: UIViewController, UITextFieldDelegate, UserSelecti
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // TODO
         if(segue.identifier == "embedUserListViewController") {
             let userListVc = segue.destinationViewController as! UserListViewController
             userListVc.selectionListenerDelegate = self
         }
+    }
+    
+    @IBAction func addUserButtonClicked(sender: UIButton) {
+        if !usernameText.text.isEmpty {
+            let username = usernameText.text
+            searchForUser(username)
+        }
+    }
+    
+    @IBAction func logoutClicked(sender: UIButton) {
+        LayerService.sharedInstance.disconnect { (success: Bool, error: NSError?) -> Void in
+            if !success {
+                println("There was an error logging out of the Layer Service: " + error!.localizedDescription)
+            }
+            
+            ParseService.sharedInstance.logout({ (success, error) in
+                if !success {
+                    println("There was an error logging out of the Parse Service: " + error!.localizedDescription)
+                }
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
+    }
+    
+    @IBAction func userListClicked(sender: UIButton) {
+        let conversationsVc = storyboard!.instantiateViewControllerWithIdentifier("ConversationsViewController") as! ConversationsViewController
+        self.presentViewController(conversationsVc, animated: true, completion: nil)
     }
     
     //
@@ -50,7 +76,7 @@ class MainChatViewController: UIViewController, UITextFieldDelegate, UserSelecti
     }
     
     static func loadMainChatViewControllerFromViewController(currentVc: UIViewController!, dismissCurrentVc: Bool) {
-        let vc = currentVc.storyboard!.instantiateViewControllerWithIdentifier("MainChatViewController") as! MainChatViewController
+        let vc = currentVc.storyboard!.instantiateViewControllerWithIdentifier("UsersViewController") as! UsersViewController
 
         if dismissCurrentVc {
             currentVc.dismissViewControllerAnimated(false, completion: { () -> Void in
@@ -99,28 +125,6 @@ class MainChatViewController: UIViewController, UITextFieldDelegate, UserSelecti
                 println("Error searching for user \(username): \(error!.localizedDescription)")
             }
         })
-    }
-    
-    @IBAction func addUserButtonClicked(sender: UIButton) {
-        if !usernameText.text.isEmpty {
-            let username = usernameText.text
-            searchForUser(username)
-        }
-    }
-    
-    @IBAction func logoutClicked(sender: UIButton) {
-        LayerService.sharedInstance.disconnect { (success: Bool, error: NSError?) -> Void in
-            if !success {
-                println("There was an error logging out of the Layer Service: " + error!.localizedDescription)
-            }
-            
-            ParseService.sharedInstance.logout({ (success, error) in
-                if !success {
-                    println("There was an error logging out of the Parse Service: " + error!.localizedDescription)
-                }
-                self.dismissViewControllerAnimated(true, completion: nil)
-            })
-        }
     }
     
     static func getTopMostController() -> UIViewController {

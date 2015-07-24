@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     /** Handle the login callback.  */
     func handleLoginCallback(user: PFUser?, error: NSError?) -> Void {
         if nil == error {
-            MainChatViewController.loadMainChatViewControllerFromViewController(self, dismissCurrentVc: true)
+            UsersViewController.loadMainChatViewControllerFromViewController(self, dismissCurrentVc: true)
         } else {
             displayLoginError(error!.localizedDescription)
         }

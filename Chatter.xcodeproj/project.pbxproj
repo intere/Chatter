@@ -22,7 +22,7 @@
 		3699EFB01B5D271900E29E4A /* Logout_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 3699EFAF1B5D271900E29E4A /* Logout_64.png */; };
 		36A5B59C1B5AE53100AFAF28 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */; };
 		36A5B59E1B5AE54C00AFAF28 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */; };
-		36A5B5A01B5AE56900AFAF28 /* MainChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59F1B5AE56900AFAF28 /* MainChatViewController.swift */; };
+		36A5B5A01B5AE56900AFAF28 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5B59F1B5AE56900AFAF28 /* UsersViewController.swift */; };
 		36A5B5A91B5AE5D300AFAF28 /* asterick.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A41B5AE5D300AFAF28 /* asterick.png */; };
 		36A5B5AA1B5AE5D300AFAF28 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A51B5AE5D300AFAF28 /* cancel.png */; };
 		36A5B5AB1B5AE5D300AFAF28 /* fb_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A61B5AE5D300AFAF28 /* fb_login.png */; };
@@ -30,6 +30,9 @@
 		36A5B5AD1B5AE5D300AFAF28 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5A81B5AE5D300AFAF28 /* login.png */; };
 		36A5B5AF1B5AE5DD00AFAF28 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A5B5AE1B5AE5DD00AFAF28 /* title.png */; };
 		36AB61C61B5C16FD003280B8 /* ParseServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */; };
+		36E411AF1B61C6B500C7A09D /* user_list_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E411AE1B61C6B500C7A09D /* user_list_64.png */; };
+		36E411B11B61D69B00C7A09D /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */; };
+		36E411B71B61DDB800C7A09D /* ConversationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */; };
 		36E5D9D21B5C95C400AB8828 /* Add_User_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5D9D11B5C95C400AB8828 /* Add_User_64.png */; };
 		36E5D9D41B5C98A100AB8828 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */; };
 		A0555352A3726E9E5C6D8C81 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF4D649714209C7FBC2F749 /* Pods_Chatter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -69,7 +72,7 @@
 		3699EFAF1B5D271900E29E4A /* Logout_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout_64.png; sourceTree = "<group>"; };
 		36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		36A5B59F1B5AE56900AFAF28 /* MainChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainChatViewController.swift; sourceTree = "<group>"; };
+		36A5B59F1B5AE56900AFAF28 /* UsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		36A5B5A41B5AE5D300AFAF28 /* asterick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asterick.png; sourceTree = "<group>"; };
 		36A5B5A51B5AE5D300AFAF28 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		36A5B5A61B5AE5D300AFAF28 /* fb_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login.png; sourceTree = "<group>"; };
@@ -78,6 +81,9 @@
 		36A5B5AE1B5AE5DD00AFAF28 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseServiceTest.swift; sourceTree = "<group>"; };
 		36AB61C91B5C1A84003280B8 /* Pods_Chatter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Chatter.framework; path = "Pods/../build/Debug-iphoneos/Pods_Chatter.framework"; sourceTree = "<group>"; };
+		36E411AE1B61C6B500C7A09D /* user_list_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_list_64.png; sourceTree = "<group>"; };
+		36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewController.swift; sourceTree = "<group>"; };
 		36E5D9D11B5C95C400AB8828 /* Add_User_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add_User_64.png; sourceTree = "<group>"; };
 		36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		7744D10111DDA42D46038E0F /* Pods-Chatter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatter/Pods-Chatter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,12 +195,10 @@
 			children = (
 				360D3BC71B5AD4E9003002A7 /* AppDelegate.swift */,
 				360D3BC91B5AD4E9003002A7 /* ViewController.swift */,
-				36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */,
-				36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */,
-				36A5B59F1B5AE56900AFAF28 /* MainChatViewController.swift */,
-				36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */,
-				3699EFA71B5C9E7000E29E4A /* ChatViewController.swift */,
-				3699EFA91B5CA06F00E29E4A /* ChatTableViewController.swift */,
+				36E411B21B61D6FF00C7A09D /* Authentication */,
+				36E411B41B61DD0000C7A09D /* Chat */,
+				36E411B51B61DD1600C7A09D /* Conversation */,
+				36E411B31B61D74700C7A09D /* Users */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -211,6 +215,7 @@
 		36A5B5A11B5AE5B200AFAF28 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				36E411AE1B61C6B500C7A09D /* user_list_64.png */,
 				3699EFAF1B5D271900E29E4A /* Logout_64.png */,
 				3699EFAD1B5CA20900E29E4A /* Back_arrow_circular_symbol_32.png */,
 				3699EFAB1B5CA1C800E29E4A /* Back_arrow_circular_symbol_64.png */,
@@ -247,6 +252,42 @@
 				36AB61C51B5C16FD003280B8 /* ParseServiceTest.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		36E411B21B61D6FF00C7A09D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				36A5B59D1B5AE54C00AFAF28 /* LoginViewController.swift */,
+				36A5B59B1B5AE53100AFAF28 /* RegisterViewController.swift */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		36E411B31B61D74700C7A09D /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				36A5B59F1B5AE56900AFAF28 /* UsersViewController.swift */,
+				36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */,
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+		36E411B41B61DD0000C7A09D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				3699EFA71B5C9E7000E29E4A /* ChatViewController.swift */,
+				3699EFA91B5CA06F00E29E4A /* ChatTableViewController.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		36E411B51B61DD1600C7A09D /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */,
+				36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */,
+			);
+			name = Conversation;
 			sourceTree = "<group>";
 		};
 		7E3EB639B4BCCC26EAF65FF9 /* Pods */ = {
@@ -311,6 +352,11 @@
 					360D3BC11B5AD4E9003002A7 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 268S5GJFWZ;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					360D3BD61B5AD4EA003002A7 = {
 						CreatedOnToolsVersion = 6.4;
@@ -348,6 +394,7 @@
 				3699EFAC1B5CA1C800E29E4A /* Back_arrow_circular_symbol_64.png in Resources */,
 				36A5B5AB1B5AE5D300AFAF28 /* fb_login.png in Resources */,
 				36A5B5A91B5AE5D300AFAF28 /* asterick.png in Resources */,
+				36E411AF1B61C6B500C7A09D /* user_list_64.png in Resources */,
 				360D3BD21B5AD4E9003002A7 /* LaunchScreen.xib in Resources */,
 				36A5B5AD1B5AE5D300AFAF28 /* login.png in Resources */,
 				36E5D9D21B5C95C400AB8828 /* Add_User_64.png in Resources */,
@@ -422,13 +469,15 @@
 			files = (
 				360D3BCA1B5AD4E9003002A7 /* ViewController.swift in Sources */,
 				36E5D9D41B5C98A100AB8828 /* UserListViewController.swift in Sources */,
+				36E411B71B61DDB800C7A09D /* ConversationTableViewController.swift in Sources */,
 				361E50321B5AED2A00BABEDB /* LayerService.swift in Sources */,
-				36A5B5A01B5AE56900AFAF28 /* MainChatViewController.swift in Sources */,
+				36A5B5A01B5AE56900AFAF28 /* UsersViewController.swift in Sources */,
 				360D3BEB1B5AE195003002A7 /* ParseService.swift in Sources */,
 				360D3BC81B5AD4E9003002A7 /* AppDelegate.swift in Sources */,
 				36A5B59E1B5AE54C00AFAF28 /* LoginViewController.swift in Sources */,
 				3699EFA81B5C9E7000E29E4A /* ChatViewController.swift in Sources */,
 				36A5B59C1B5AE53100AFAF28 /* RegisterViewController.swift in Sources */,
+				36E411B11B61D69B00C7A09D /* ConversationsViewController.swift in Sources */,
 				3699EFAA1B5CA06F00E29E4A /* ChatTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
