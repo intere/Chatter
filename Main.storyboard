@@ -576,7 +576,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEt-iD-SJm">
                                 <rect key="frame" x="0.0" y="68" width="600" height="486"/>
                                 <connections>
-                                    <segue destination="8VW-ZP-Vtg" kind="embed" id="Zdp-2s-122"/>
+                                    <segue destination="8VW-ZP-Vtg" kind="embed" identifier="embedChatTableViewController" id="Zdp-2s-122"/>
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40T-TE-Ct0">
@@ -744,20 +744,20 @@
         <!--Chat Table View Controller-->
         <scene sceneID="bmc-Dw-OF9">
             <objects>
-                <tableViewController id="8VW-ZP-Vtg" customClass="ChatTableViewController" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChatTableViewController" id="8VW-ZP-Vtg" customClass="ChatTableViewController" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Od3-Ku-hYQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yh6-qt-P1R">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SentTextIdentifier" id="yh6-qt-P1R">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yh6-qt-P1R" id="ziv-XF-Mik">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="icz-BP-J8U">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReceivedTextIdentifier" id="icz-BP-J8U">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="icz-BP-J8U" id="Ft0-5g-5NH">
                                     <autoresizingMask key="autoresizingMask"/>

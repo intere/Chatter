@@ -15,6 +15,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var messageText: UITextField!
     var user: PFUser?
     var conversation: LYRConversation?
+    var chatListVc: ChatTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "embedChatTableViewController" {
+            chatListVc = segue.destinationViewController as! ChatTableViewController
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -49,6 +56,10 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
             self.user = user
             self.usernameLabel.text = user.username
             self.conversation = LayerService.sharedInstance.createConversation(user.username)
+            if nil != chatListVc {
+                chatListVc!.username = user.username
+                chatListVc!.loadMessages()
+            }
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_MSEC))), dispatch_get_main_queue(), { () -> Void in
                 self.setCurrentUser(user)

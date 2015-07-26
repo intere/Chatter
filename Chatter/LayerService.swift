@@ -52,6 +52,36 @@ public class LayerService: NSObject {
         }
     }
     
+    func getUserIdForUsername(username: String!) -> String? {
+        var user: PFUser? = UserService.sharedInstance.cachedUserForUsername(username)
+        if nil != user {
+            return user?.objectId
+        }
+        return nil
+    }
+    
+    func loadMessages(username: String!) -> Array<LYRMessage> {
+        let participantIdentifier = getUserIdForUsername(username)
+        var results:Array<LYRMessage> = []
+        var error: NSError? = nil
+        var query = LYRQuery(queryableClass: LYRMessage.self)
+        var senderPredicate = LYRPredicate(property: "sender.userID", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participantIdentifier)
+        query.resultType = LYRQueryResultType.Identifiers
+        query.predicate = senderPredicate
+        var messages = self.layerClient?.executeQuery(query, error: &error)
+        
+        if nil == messages {
+            println("ERROR: LayerKit failed to execute query with error: \(error!.localizedDescription)")
+            return results
+        }
+        
+        messages?.enumerateObjectsUsingBlock({ (elem, idx, stop) -> Void in
+            results.append(elem as! LYRMessage)
+        })
+        
+        return results
+    }
+    
     /** Creates a conversation for you.  */
     func createConversation(username: String!) -> LYRConversation? {
         if nil != self.layerClient {

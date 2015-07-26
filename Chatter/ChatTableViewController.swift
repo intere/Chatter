@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import Parse
+import LayerKit
 
-class ChatTableViewController: UITableViewController {
-
+class ChatTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+    var messages: Array<LYRMessage> = []
+    var username: String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "loadMessages", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,64 +35,47 @@ class ChatTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+        return messages.count
     }
-
-    /*
+    
+    func loadMessages() {
+        self.refreshControl?.beginRefreshing()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
+            let userId: String? = self.getUserIdForUsername(self.username!)
+            if nil != userId {
+                self.messages = LayerService.sharedInstance.loadMessages(userId!)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                })
+            } else {
+                println("Error converting username to user id for user: \(self.username!)")
+            }
+        })
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
+        var cell: UITableViewCell
+        
+        var message: LYRMessage = self.messages[indexPath.row]
+        if message.sender.userID == self.username {
+            cell = tableView.dequeueReusableCellWithIdentifier("ReceivedTextIdentifier", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.textColor = UIColor.blueColor()
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("SentTextIdentifier", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.textColor = UIColor.orangeColor()
+        }
+        cell.textLabel?.text = message.description
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    
+    func getUserIdForUsername(username: String) -> String? {
+        var user: PFUser? = UserService.sharedInstance.cachedUserForUsername(username)
+        if nil != user {
+            return user?.objectId
+        }
+        return nil
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

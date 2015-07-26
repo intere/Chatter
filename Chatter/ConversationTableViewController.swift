@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 import LayerKit
 
 
@@ -81,10 +82,29 @@ class ConversationTableViewController: UITableViewController, UITableViewDataSou
         if nil != conversation {
             for participant in conversation!.participants {
                 if participant != LayerService.sharedInstance.getAuthenticatedUserId() {
-                    return participant as? String
+                    return getUsernameForParticipant(participant)
                 }
             }
         }
         return nil
+    }
+    
+    func getUsernameForParticipant(participant: NSObject) -> String {
+        let participantString: String = participant as! String
+        if UserService.sharedInstance.isCachePopulating() {
+            println("Error: User Cache is in the process of populating")
+            return participantString
+        } else if !UserService.sharedInstance.isCachePopulated() {
+            println("Error: User Cache is not populated (and not in the process of populating)")
+            return participantString
+        } else {
+            let user: PFUser? = UserService.sharedInstance.cachedUserForUserIdOrusername(participantString)
+            if nil != user {
+                return user!.username!
+            } else {
+                println("Error: Unable to find \(participantString) in the cache")
+                return participantString
+            }
+        }
     }
 }

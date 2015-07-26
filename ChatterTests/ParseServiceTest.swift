@@ -14,7 +14,8 @@ class ParseServiceTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        ParseService.sharedInstance.initializeParseService()
+        ParseService.sharedInstance.applicationLaunch(UIApplication.sharedApplication(), launchOptions: [:])
     }
     
     override func tearDown() {
@@ -32,7 +33,7 @@ class ParseServiceTest: XCTestCase {
         
         var expectation = self.expectationWithDescription("Login Block")
         
-        if ParseService.isLoggedIn() {
+        if ParseService.sharedInstance.isLoggedIn() {
             ParseService.sharedInstance.logout({ (success:Bool, error: NSError?) -> Void in
                 ParseService.sharedInstance.login(username, password: password) { (user, error: NSError?) -> Void in
                     XCTAssertNotNil(user, "user was nil")
