@@ -630,7 +630,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "14ed42f8-2908-4f06-9dd9-cc31c12f04fe";
 			};
 			name = Debug;
 		};
@@ -639,8 +639,8 @@
 			baseConfigurationReference = 044EDC2203F40A58DF01FDD4 /* Pods-Chatter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "\"$(PODS_ROOT)/LayerKit/LayerKit.embeddedframework\"";
 				INFOPLIST_FILE = Chatter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -649,7 +649,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "14ed42f8-2908-4f06-9dd9-cc31c12f04fe";
 			};
 			name = Release;
 		};
