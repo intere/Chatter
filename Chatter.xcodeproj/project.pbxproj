@@ -36,8 +36,6 @@
 		36C948B41B65A7AF008469BE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C948B31B65A7AF008469BE /* NotificationService.swift */; };
 		36C948B71B65A824008469BE /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C948B61B65A824008469BE /* AppUtils.swift */; };
 		36E411AF1B61C6B500C7A09D /* user_list_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E411AE1B61C6B500C7A09D /* user_list_64.png */; };
-		36E411B11B61D69B00C7A09D /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */; };
-		36E411B71B61DDB800C7A09D /* ConversationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */; };
 		36E5D9D21B5C95C400AB8828 /* Add_User_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5D9D11B5C95C400AB8828 /* Add_User_64.png */; };
 		36E5D9D41B5C98A100AB8828 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */; };
 		A0555352A3726E9E5C6D8C81 /* Pods_Chatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF4D649714209C7FBC2F749 /* Pods_Chatter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -92,8 +90,6 @@
 		36C948B31B65A7AF008469BE /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		36C948B61B65A824008469BE /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		36E411AE1B61C6B500C7A09D /* user_list_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_list_64.png; sourceTree = "<group>"; };
-		36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
-		36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewController.swift; sourceTree = "<group>"; };
 		36E5D9D11B5C95C400AB8828 /* Add_User_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add_User_64.png; sourceTree = "<group>"; };
 		36E5D9D31B5C98A100AB8828 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		7744D10111DDA42D46038E0F /* Pods-Chatter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatter/Pods-Chatter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -209,7 +205,6 @@
 				360D3BC91B5AD4E9003002A7 /* ViewController.swift */,
 				36E411B21B61D6FF00C7A09D /* Authentication */,
 				36E411B41B61DD0000C7A09D /* Chat */,
-				36E411B51B61DD1600C7A09D /* Conversation */,
 				36E411B31B61D74700C7A09D /* Users */,
 			);
 			name = Controllers;
@@ -310,15 +305,6 @@
 				3699EFA91B5CA06F00E29E4A /* ChatTableViewController.swift */,
 			);
 			name = Chat;
-			sourceTree = "<group>";
-		};
-		36E411B51B61DD1600C7A09D /* Conversation */ = {
-			isa = PBXGroup;
-			children = (
-				36E411B01B61D69B00C7A09D /* ConversationsViewController.swift */,
-				36E411B61B61DDB800C7A09D /* ConversationTableViewController.swift */,
-			);
-			name = Conversation;
 			sourceTree = "<group>";
 		};
 		7E3EB639B4BCCC26EAF65FF9 /* Pods */ = {
@@ -502,7 +488,6 @@
 				360D3BCA1B5AD4E9003002A7 /* ViewController.swift in Sources */,
 				36E5D9D41B5C98A100AB8828 /* UserListViewController.swift in Sources */,
 				36C948B41B65A7AF008469BE /* NotificationService.swift in Sources */,
-				36E411B71B61DDB800C7A09D /* ConversationTableViewController.swift in Sources */,
 				361E50321B5AED2A00BABEDB /* LayerService.swift in Sources */,
 				36A5B5A01B5AE56900AFAF28 /* UsersViewController.swift in Sources */,
 				360D3BEB1B5AE195003002A7 /* ParseService.swift in Sources */,
@@ -512,7 +497,6 @@
 				3699EFA81B5C9E7000E29E4A /* ChatViewController.swift in Sources */,
 				36A5B59C1B5AE53100AFAF28 /* RegisterViewController.swift in Sources */,
 				3623BE581B65B53800710D88 /* Message.swift in Sources */,
-				36E411B11B61D69B00C7A09D /* ConversationsViewController.swift in Sources */,
 				3699EFAA1B5CA06F00E29E4A /* ChatTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

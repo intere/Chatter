@@ -402,7 +402,7 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w9D-Bm-kq6">
-                                <rect key="frame" x="56" y="120" width="448" height="30"/>
+                                <rect key="frame" x="56" y="120" width="488" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="4be-Hz-Qcy"/>
@@ -435,25 +435,14 @@
                                     <action selector="logoutClicked:" destination="QrR-pl-Rjn" eventType="touchUpInside" id="Fx2-Me-O8a"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adu-Hp-XOW">
-                                <rect key="frame" x="552" y="118" width="32" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="0ba-BY-9RD"/>
-                                    <constraint firstAttribute="height" constant="32" id="Vc2-RE-EM6"/>
-                                </constraints>
-                                <state key="normal" image="user_list_64.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="userListClicked:" destination="QrR-pl-Rjn" eventType="touchUpInside" id="wZu-uj-eLH"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0H-gA-WdM">
-                                <rect key="frame" x="512" y="120" width="32" height="32"/>
+                                <rect key="frame" x="552" y="120" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="3Ov-CA-IKM"/>
                                     <constraint firstAttribute="height" constant="32" id="JnS-2u-Q0u"/>
                                     <constraint firstAttribute="width" constant="32" id="U89-ph-Kgf"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="bOl-l2-WlF"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="jby-xD-8DX"/>
                                     <constraint firstAttribute="width" constant="32" id="wZe-G1-gwZ"/>
                                 </constraints>
                                 <state key="normal" image="Add_User_64.png">
@@ -485,20 +474,19 @@
                             <constraint firstAttribute="trailingMargin" secondItem="HYp-DS-Xqp" secondAttribute="trailing" constant="-16" id="91V-yW-CYK"/>
                             <constraint firstItem="mC1-0S-OFL" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" constant="-16" id="FMa-hS-yg4"/>
                             <constraint firstItem="w9D-Bm-kq6" firstAttribute="top" secondItem="7UD-CN-o40" secondAttribute="bottom" constant="8" id="GR8-Lb-3l7"/>
-                            <constraint firstItem="adu-Hp-XOW" firstAttribute="leading" secondItem="w0H-gA-WdM" secondAttribute="trailing" constant="8" id="Jaj-Y8-2wG"/>
                             <constraint firstItem="w9D-Bm-kq6" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" constant="-5" id="MUC-ys-MjI"/>
                             <constraint firstItem="4L9-6H-lWJ" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" id="MgQ-qr-ZcH"/>
                             <constraint firstItem="IRb-Q8-XNP" firstAttribute="top" secondItem="HYp-DS-Xqp" secondAttribute="bottom" id="OiS-D5-jkQ"/>
+                            <constraint firstItem="w0H-gA-WdM" firstAttribute="trailing" secondItem="Dqk-9e-bwJ" secondAttribute="trailingMargin" id="Po5-TF-diU"/>
                             <constraint firstItem="7UD-CN-o40" firstAttribute="top" secondItem="LVq-vo-Hxz" secondAttribute="bottom" constant="20" id="QW9-l2-xym"/>
                             <constraint firstItem="mC1-0S-OFL" firstAttribute="top" secondItem="Dqk-9e-bwJ" secondAttribute="topMargin" id="RDf-N3-zzh"/>
-                            <constraint firstItem="adu-Hp-XOW" firstAttribute="leading" secondItem="w0H-gA-WdM" secondAttribute="trailing" constant="8" id="UIi-LY-Uku"/>
+                            <constraint firstItem="w0H-gA-WdM" firstAttribute="leading" secondItem="w9D-Bm-kq6" secondAttribute="trailing" constant="8" id="WTT-eI-hTt"/>
+                            <constraint firstItem="w0H-gA-WdM" firstAttribute="top" secondItem="7UD-CN-o40" secondAttribute="bottom" constant="8" id="XcB-mb-EiD"/>
                             <constraint firstItem="w0H-gA-WdM" firstAttribute="top" secondItem="7UD-CN-o40" secondAttribute="bottom" constant="8" id="dc8-Q8-thP"/>
-                            <constraint firstItem="w0H-gA-WdM" firstAttribute="top" secondItem="adu-Hp-XOW" secondAttribute="top" constant="2" id="f83-h0-7ai"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mC1-0S-OFL" secondAttribute="trailing" constant="-16" id="gFV-43-lXq"/>
                             <constraint firstItem="w9D-Bm-kq6" firstAttribute="leading" secondItem="4L9-6H-lWJ" secondAttribute="trailing" constant="8" id="goq-UV-mXf"/>
                             <constraint firstItem="w0H-gA-WdM" firstAttribute="leading" secondItem="w9D-Bm-kq6" secondAttribute="trailing" constant="8" id="hhc-xk-fm5"/>
                             <constraint firstItem="7UD-CN-o40" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" id="jG1-EN-edg"/>
-                            <constraint firstItem="adu-Hp-XOW" firstAttribute="trailing" secondItem="Dqk-9e-bwJ" secondAttribute="trailingMargin" id="nmg-8s-1uK"/>
                             <constraint firstItem="w9D-Bm-kq6" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" id="oKy-MS-KcU"/>
                             <constraint firstItem="7UD-CN-o40" firstAttribute="leading" secondItem="Dqk-9e-bwJ" secondAttribute="leadingMargin" constant="-16" id="sCW-ms-INI"/>
                         </constraints>
@@ -513,7 +501,6 @@
                                 <exclude reference="09k-9K-pk6"/>
                                 <exclude reference="4kL-eL-dTA"/>
                                 <exclude reference="84d-g3-SNU"/>
-                                <exclude reference="UIi-LY-Uku"/>
                             </mask>
                         </variation>
                     </view>
@@ -814,6 +801,5 @@
         <image name="login.png" width="210" height="74"/>
         <image name="register.png" width="140" height="39"/>
         <image name="title.png" width="315" height="68"/>
-        <image name="user_list_64.png" width="64" height="64"/>
     </resources>
 </document>

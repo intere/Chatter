@@ -58,11 +58,6 @@ class UsersViewController: UIViewController, UITextFieldDelegate, UserSelectionL
         }
     }
     
-    @IBAction func userListClicked(sender: UIButton) {
-        let conversationsVc = storyboard!.instantiateViewControllerWithIdentifier("ConversationsViewController") as! ConversationsViewController
-        self.presentViewController(conversationsVc, animated: true, completion: nil)
-    }
-    
     //
     // MARK - UserSelectionListener method
     //

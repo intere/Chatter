@@ -121,8 +121,10 @@ class ChatTableViewController: UITableViewController, UITableViewDelegate, UITab
     
     func scrollToBottom() {
         dispatch_async(dispatch_get_main_queue(), {
-            var indexPath: NSIndexPath = NSIndexPath(forRow: self.messages.count-1, inSection: 0)
-            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            if self.messages.count > 0 {
+                var indexPath: NSIndexPath = NSIndexPath(forRow: self.messages.count-1, inSection: 0)
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            }
         })
     }
 }
