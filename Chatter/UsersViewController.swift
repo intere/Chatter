@@ -80,7 +80,7 @@ class UsersViewController: UIViewController, UITextFieldDelegate, UserSelectionL
 
         if dismissCurrentVc {
             currentVc.dismissViewControllerAnimated(false, completion: { () -> Void in
-                self.loadMainChatViewControllerFromViewController(self.getTopMostController())
+                self.loadMainChatViewControllerFromViewController(AppUtils.getTopMostController())
             })
         } else {
             currentVc.presentViewController(vc, animated: true, completion: nil)
@@ -125,15 +125,6 @@ class UsersViewController: UIViewController, UITextFieldDelegate, UserSelectionL
                 println("Error searching for user \(username): \(error!.localizedDescription)")
             }
         })
-    }
-    
-    static func getTopMostController() -> UIViewController {
-        var topController = UIApplication.sharedApplication().keyWindow!.rootViewController! as UIViewController
-        while( nil != topController.presentedViewController) {
-            topController = topController.presentedViewController!
-        }
-        
-        return topController
     }
     
     /** Display a login error to the user.  */

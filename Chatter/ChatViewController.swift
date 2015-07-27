@@ -28,7 +28,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "embedChatTableViewController" {
-            chatListVc = segue.destinationViewController as! ChatTableViewController
+            chatListVc = segue.destinationViewController as? ChatTableViewController
         }
     }
     
@@ -46,8 +46,14 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
     
     func sendMessage() {
         if !self.messageText.text.isEmpty {
-            LayerService.sharedInstance.sendMessage(self.conversation!, messageText: self.messageText.text)
+            let messageText: String! = self.messageText.text
+            LayerService.sharedInstance.sendMessage(self.conversation!, messageText: messageText)
             self.messageText.text = ""
+            dispatch_async(dispatch_get_main_queue(), {
+                if nil != self.chatListVc {
+                    self.chatListVc?.addMessage(messageText, sent: true)
+                }
+            })
         }
     }
     
@@ -65,5 +71,23 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
                 self.setCurrentUser(user)
             })
         }
+    }
+    
+    func receivedMessage(conversationText: String?) {
+        if nil != conversationText {
+            dispatch_async(dispatch_get_main_queue(), {
+                if nil != self.chatListVc {
+                    self.chatListVc!.addMessage(conversationText!, sent: false)
+                }
+            })
+        }
+    }
+    
+    func isConversation(conversationId: String) -> Bool {
+        if nil != conversation {
+            var myConvoId: String = conversation!.identifier!.absoluteString!
+            return myConvoId == conversationId
+        }
+        return false
     }
 }

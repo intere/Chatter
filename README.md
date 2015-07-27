@@ -25,3 +25,5 @@ curl -X POST \
       }' \
   https://api.parse.com/1/push
 ```
+
+apn push "<da3dfeda 4937a9ed 3f03d814 17dd52f0 3119710c 9c9dfbe8 85b3bc88 9ff57436>" -c certs/ParseDevelopmentCertificate.p12.pem -m "Hello from the command line\!"

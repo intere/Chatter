@@ -47,6 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error)
             }
         }
+        
+        LayerService.sharedInstance.registerDevice(deviceToken)
+        
+        println("Device Token: \(deviceToken)")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -58,16 +62,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        PFPush.handlePush(userInfo)
-        if application.applicationState == UIApplicationState.Inactive {
-            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-        }
+        NotificationService.sharedInstance.handleNotification(userInfo, fetchCompletionHandler: completionHandler)
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handlePush(userInfo)
-        if application.applicationState == UIApplicationState.Inactive {
-            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-        }
+        
+        NotificationService.sharedInstance.handleNotification(userInfo, fetchCompletionHandler: nil)
     }
+    
+    
+    
+    
 }

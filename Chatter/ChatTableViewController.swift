@@ -11,7 +11,8 @@ import Parse
 import LayerKit
 
 class ChatTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
-    var messages: Array<LYRMessage> = []
+    var layerMessages: Array<LYRMessage> = []
+    var messages: Array<Message> = []
     var username: String? = nil
     
     override func viewDidLoad() {
@@ -25,7 +26,6 @@ class ChatTableViewController: UITableViewController, UITableViewDelegate, UITab
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -38,15 +38,27 @@ class ChatTableViewController: UITableViewController, UITableViewDelegate, UITab
         return messages.count
     }
     
+    func addMessage(messageText: String, sent: Bool) {
+        if sent {
+            self.messages.append(Message(message: messageText))
+        } else {
+            self.messages.append(Message(message: messageText, andSender: self.username))
+        }
+        self.tableView.reloadData()
+        self.scrollToBottom()
+    }
+    
     func loadMessages() {
         self.refreshControl?.beginRefreshing()
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
             let userId: String? = self.getUserIdForUsername(self.username!)
             if nil != userId {
-                self.messages = LayerService.sharedInstance.loadMessages(userId!)
+                self.setMessagesFromApi(LayerService.sharedInstance.loadMessages(userId!))
+                
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                    self.scrollToBottom()
                 })
             } else {
                 println("Error converting username to user id for user: \(self.username!)")
@@ -54,20 +66,49 @@ class ChatTableViewController: UITableViewController, UITableViewDelegate, UITab
         })
     }
     
+    func setMessagesFromApi(apiMessages: [LYRMessage]) {
+        self.layerMessages = apiMessages
+        self.messages = []
+        for message: LYRMessage in self.layerMessages {
+            let messageText: String = messageToString(message)!
+            if message.sender.userID == PFUser.currentUser()?.objectId {
+                self.messages.append(Message(message: messageText))
+            } else {
+                self.messages.append(Message(message: messageText, andSender: self.username))
+            }
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         
-        var message: LYRMessage = self.messages[indexPath.row]
-        if message.sender.userID == self.username {
-            cell = tableView.dequeueReusableCellWithIdentifier("ReceivedTextIdentifier", forIndexPath: indexPath) as! UITableViewCell
-            cell.textLabel?.textColor = UIColor.blueColor()
-        } else {
+        var message: Message = self.messages[indexPath.row]
+        if message.sent {
             cell = tableView.dequeueReusableCellWithIdentifier("SentTextIdentifier", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.textColor = UIColor.blueColor()
+            cell.textLabel?.textAlignment = NSTextAlignment.Right
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("ReceivedTextIdentifier", forIndexPath: indexPath) as! UITableViewCell
             cell.textLabel?.textColor = UIColor.orangeColor()
+            cell.textLabel?.textAlignment = NSTextAlignment.Left
         }
-        cell.textLabel?.text = message.description
+        cell.textLabel?.text = message.messageText
         
         return cell
+    }
+    
+    func messageToString(message: LYRMessage) -> String? {
+        var string: String! = ""
+        
+        for part: LYRMessagePart in message.parts as! [LYRMessagePart] {
+            if !string.isEmpty {
+                string = "\n"
+            }
+            var appendString: String! = NSString(data: part.data, encoding: NSUTF8StringEncoding) as! String
+            string = string + appendString
+        }
+        
+        return string
     }
     
     func getUserIdForUsername(username: String) -> String? {
@@ -77,5 +118,11 @@ class ChatTableViewController: UITableViewController, UITableViewDelegate, UITab
         }
         return nil
     }
-
+    
+    func scrollToBottom() {
+        dispatch_async(dispatch_get_main_queue(), {
+            var indexPath: NSIndexPath = NSIndexPath(forRow: self.messages.count-1, inSection: 0)
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        })
+    }
 }

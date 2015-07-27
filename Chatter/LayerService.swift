@@ -27,6 +27,17 @@ public class LayerService: NSObject {
         // TODO - do we need to do anything?
     }
     
+    public func registerDevice(deviceToken: NSData!) {
+        var error: NSError? = nil
+        var success: Bool = self.layerClient!.updateRemoteNotificationDeviceToken(deviceToken, error: &error)
+        
+        if success {
+            println("LayerKit: Application did register for remote notifications");
+        } else {
+            println("ERROR: LayerKit was unable to register the device token for push: \(error!.localizedDescription)")
+        }
+    }
+    
     /** Get the authenticated user id.  */
     func getAuthenticatedUserId() -> String? {
         if nil != self.layerClient {
@@ -37,23 +48,45 @@ public class LayerService: NSObject {
     
     /** Get the current set of conversations.  */
     func loadConversations() -> NSOrderedSet? {
-        let query = LYRQuery(queryableClass: LYRConversation.self) as LYRQuery
-        query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsIn, value: self.layerClient?.authenticatedUserID)
+        let myUserId: String? = self.layerClient?.authenticatedUserID
+        if nil == myUserId {
+            println("ERROR: My UserID was nil")
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_MSEC))), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                self.loadConversations()
+            })
+            return nil
+        }
+        let query = LYRQuery(queryableClass: LYRConversation.self)
+        query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsIn, value: myUserId)
         query.sortDescriptors = [NSSortDescriptor(key: "lastMessage.receivedAt", ascending: false)]
         
         var error: NSError?
-        
-        let messages = self.layerClient?.executeQuery(query, error: &error) as NSOrderedSet?
+        let conversations = self.layerClient?.executeQuery(query, error: &error) as NSOrderedSet?
         if nil != error {
-            println("Query failed iwth error: \(error!.localizedDescription)")
+            println("Query failed with error: \(error!.localizedDescription)")
             return nil
+        } else if nil != conversations {
+                for conversation:LYRConversation in conversations?.array as! [LYRConversation] {
+                    let username: String? = LayerService.getUsernameFromConversation(conversation)
+                    if nil != username {
+                        if nil == conversationMap[username!] {
+                            conversationMap[username!] = conversation
+                            println("Added conversation to map for user: \(username!)")
+                        } else {
+                            println("We already have a conversation for user: \(username!)")
+                        }
+                    } else {
+                        println("Unable to discover / map username from conversation")
+                    }
+                }
         } else {
-            return messages
+            println("ERROR: No conversations came back")
         }
+        return conversations
     }
     
     func getUserIdForUsername(username: String!) -> String? {
-        var user: PFUser? = UserService.sharedInstance.cachedUserForUsername(username)
+        var user: PFUser?  = UserService.sharedInstance.cachedUserForUserIdOrusername(username)
         if nil != user {
             return user?.objectId
         }
@@ -61,33 +94,42 @@ public class LayerService: NSObject {
     }
     
     func loadMessages(username: String!) -> Array<LYRMessage> {
-        let participantIdentifier = getUserIdForUsername(username)
-        var results:Array<LYRMessage> = []
-        var error: NSError? = nil
-        var query = LYRQuery(queryableClass: LYRMessage.self)
-        var senderPredicate = LYRPredicate(property: "sender.userID", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participantIdentifier)
-        query.resultType = LYRQueryResultType.Identifiers
-        query.predicate = senderPredicate
-        var messages = self.layerClient?.executeQuery(query, error: &error)
+        let user: PFUser?  = UserService.sharedInstance.cachedUserForUserIdOrusername(username)
+        let participantIdentifier = user!.objectId
+        let conversation: LYRConversation? = self.conversationMap[user!.username!]
         
-        if nil == messages {
-            println("ERROR: LayerKit failed to execute query with error: \(error!.localizedDescription)")
-            return results
+        if nil != conversation {
+            var query: LYRQuery! = LYRQuery(queryableClass: LYRMessage.self)
+            query.predicate = LYRPredicate(property: "conversation", predicateOperator: LYRPredicateOperator.IsEqualTo, value: conversation)
+            // query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
+            query.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
+            query.resultType = LYRQueryResultType.Objects
+            var error: NSError? = nil
+            var messages = self.layerClient?.executeQuery(query, error: &error)
+            
+            if nil != messages {
+                return messages?.array as! [LYRMessage]
+            } else {
+                println("Error: No messages received for user: \(user!.username!)")
+            }
+        } else {
+            self.loadConversations()
+            println("Nil conversation for user: \(user!.username!)")
         }
         
-        messages?.enumerateObjectsUsingBlock({ (elem, idx, stop) -> Void in
-            results.append(elem as! LYRMessage)
-        })
-        
-        return results
+        return []
     }
     
     /** Creates a conversation for you.  */
     func createConversation(username: String!) -> LYRConversation? {
-        if nil != self.layerClient {
+        var conversation: LYRConversation? = conversationMap[username]
+        if nil != conversation {
+            return conversation
+        } else if nil != self.layerClient {
             if nil == conversationMap[username] {
+                let userId: String! = UserService.sharedInstance.cachedUserForUserIdOrusername(username)?.objectId
                 var error: NSError?
-                var conversation = layerClient?.newConversationWithParticipants([username], options: nil, error: &error)
+                conversation = layerClient?.newConversationWithParticipants([userId], options: nil, error: &error)
                 if nil != error {
                     if nil != error!.userInfo && nil != error!.userInfo![LYRExistingDistinctConversationKey] {
                         conversation = error!.userInfo![LYRExistingDistinctConversationKey] as? LYRConversation
@@ -114,12 +156,11 @@ public class LayerService: NSObject {
         // Sends the specified message
         var error: NSError?
         let success = conversation.sendMessage(message, error:&error)
-        if success {
-            println("Message queued to be sent: " + messageText)
+        if nil == error {
+            println("Message sent: " + messageText)
         } else {
             println("Message send failed: " + error!.localizedDescription)
         }
-
     }
     
     /** This method handles logging into the Layer Service.  */
@@ -240,5 +281,40 @@ public class LayerService: NSObject {
             }
             
         })
+    }
+    
+    
+    
+    //
+    // Mark Helper Methods
+    //
+    public static func getUsernameFromConversation(conversation: LYRConversation?) -> String? {
+        if nil != conversation {
+            for participant in conversation!.participants {
+                if participant != LayerService.sharedInstance.getAuthenticatedUserId() {
+                    return getUsernameForParticipant(participant)
+                }
+            }
+        }
+        return nil
+    }
+    
+    public static func getUsernameForParticipant(participant: NSObject) -> String {
+        let participantString: String = participant as! String
+        if UserService.sharedInstance.isCachePopulating() {
+            println("Error: User Cache is in the process of populating")
+            return participantString
+        } else if !UserService.sharedInstance.isCachePopulated() {
+            println("Error: User Cache is not populated (and not in the process of populating)")
+            return participantString
+        } else {
+            let user: PFUser? = UserService.sharedInstance.cachedUserForUserIdOrusername(participantString)
+            if nil != user {
+                return user!.username!
+            } else {
+                println("Error: Unable to find \(participantString) in the cache")
+                return participantString
+            }
+        }
     }
 }

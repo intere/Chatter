@@ -52,6 +52,9 @@ public class UserService: NSObject {
                     println("Error building user cache: \(error!.localizedDescription)")
                 }
             })
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                LayerService.sharedInstance.loadConversations()
+            })
         })
     }
     

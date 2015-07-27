@@ -63,7 +63,7 @@ class ConversationTableViewController: UITableViewController, UITableViewDataSou
         let conversation = conversations?.objectAtIndex(indexPath.row) as? LYRConversation
         cell.textLabel?.textColor = UIColor.orangeColor()
         
-        cell.textLabel?.text = getUsernameFromConversation(conversation)
+        cell.textLabel?.text = LayerService.getUsernameFromConversation(conversation)
 
         return cell
     }
@@ -71,39 +71,9 @@ class ConversationTableViewController: UITableViewController, UITableViewDataSou
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if nil != selectionListenerDelegate {
             let conversation = conversations?[indexPath.row] as? LYRConversation
-            let username = self.getUsernameFromConversation(conversation)
+            let username = LayerService.getUsernameFromConversation(conversation)
             if nil != username {
                 selectionListenerDelegate!.userSelected(username)
-            }
-        }
-    }
-    
-    func getUsernameFromConversation(conversation: LYRConversation?) -> String? {
-        if nil != conversation {
-            for participant in conversation!.participants {
-                if participant != LayerService.sharedInstance.getAuthenticatedUserId() {
-                    return getUsernameForParticipant(participant)
-                }
-            }
-        }
-        return nil
-    }
-    
-    func getUsernameForParticipant(participant: NSObject) -> String {
-        let participantString: String = participant as! String
-        if UserService.sharedInstance.isCachePopulating() {
-            println("Error: User Cache is in the process of populating")
-            return participantString
-        } else if !UserService.sharedInstance.isCachePopulated() {
-            println("Error: User Cache is not populated (and not in the process of populating)")
-            return participantString
-        } else {
-            let user: PFUser? = UserService.sharedInstance.cachedUserForUserIdOrusername(participantString)
-            if nil != user {
-                return user!.username!
-            } else {
-                println("Error: Unable to find \(participantString) in the cache")
-                return participantString
             }
         }
     }
